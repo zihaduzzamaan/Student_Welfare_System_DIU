@@ -158,14 +158,12 @@ export default function AuthPage() {
       {/* Form Panel — slides Left on Register */}
       <div className={`${styles.formPanel} ${isRegister ? styles.formPanelLeft : ''}`}>
         <div className={styles.formContainer}>
-          {/* Mobile Brand Header */}
-          <div className={styles.mobileLogo}>
-            <DIULogo mode="full" height={40} />
-          </div>
-
           {/* ── LOGIN FORM WRAPPER (Persistent DOM) ── */}
           <div className={`${styles.formWrapper} ${!isRegister ? styles.activeForm : styles.inactiveForm}`}>
             <div className={styles.formHeader}>
+              <div className={styles.mobileLogo}>
+                <DIULogo mode="full" height={40} />
+              </div>
               <h2 className={styles.formTitle}>Welcome Back</h2>
               <p className={styles.formSubtitle}>
                 Sign in to access the Student Welfare Portal
@@ -276,6 +274,9 @@ export default function AuthPage() {
           {/* ── REGISTER FORM WRAPPER (Persistent DOM) ── */}
           <div className={`${styles.formWrapper} ${isRegister ? styles.activeForm : styles.inactiveForm}`}>
             <div className={styles.formHeader}>
+              <div className={styles.mobileLogo}>
+                <DIULogo mode="full" height={40} />
+              </div>
               <h2 className={styles.formTitle}>Create Account</h2>
               <p className={styles.formSubtitle}>
                 Register with your DIU email to get started
