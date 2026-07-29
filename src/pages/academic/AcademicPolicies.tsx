@@ -7,11 +7,29 @@ import { useNavigate, Link } from 'react-router-dom';
 import {
   ArrowLeftIcon,
   ShieldCheckIcon,
-  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
   QuestionMarkCircleIcon,
+  ClockIcon,
+  HeartIcon,
+  ShieldExclamationIcon,
+  DocumentTextIcon,
+  Squares2X2Icon,
+  BookOpenIcon,
+  AcademicCapIcon,
 } from '@heroicons/react/24/outline';
 import { mockAcademicPolicies } from '../../data/mockGuides';
 import styles from './AcademicPolicies.module.css';
+
+/* ── Heroicon Map for Dynamic Icon Resolver ── */
+const POLICY_ICONS: Record<string, React.ReactNode> = {
+  Clock: <ClockIcon style={{ width: 22, height: 22 }} />,
+  Activity: <HeartIcon style={{ width: 22, height: 22 }} />,
+  ShieldAlert: <ShieldExclamationIcon style={{ width: 22, height: 22 }} />,
+  FileText: <DocumentTextIcon style={{ width: 22, height: 22 }} />,
+  Layers: <Squares2X2Icon style={{ width: 22, height: 22 }} />,
+  BookOpen: <BookOpenIcon style={{ width: 22, height: 22 }} />,
+  AcademicCap: <AcademicCapIcon style={{ width: 22, height: 22 }} />,
+};
 
 export default function AcademicPolicies() {
   const navigate = useNavigate();
@@ -33,53 +51,63 @@ export default function AcademicPolicies() {
       <div className={styles.titleGroup}>
         <h1 className={styles.title}>Academic Rules & Regulations</h1>
         <p className={styles.subtitle}>
-          Official regulations regarding overlap examinations, medical leaves, semester drops, course retakes, and improvement exams.
+          Official university regulations regarding overlap examinations, medical leaves, semester drops, course retakes, and improvement exams.
         </p>
       </div>
 
-      {/* Policy Accordions / Content */}
+      {/* Policy Feed */}
       <div className={styles.policyList}>
-        {mockAcademicPolicies.map((policy) => (
-          <article key={policy.id} id={policy.id} className={styles.policyCard}>
-            <div className={styles.policyHeader}>
-              <div className={styles.policyIconWrapper}>
-                <span>{policy.icon}</span>
-              </div>
-              <div className={styles.policyTitleGroup}>
-                <h2 className={styles.policyTitle}>{policy.title}</h2>
-                <span className={styles.categoryBadge}>{policy.category}</span>
-              </div>
-            </div>
+        {mockAcademicPolicies.map((policy) => {
+          const iconElement = POLICY_ICONS[policy.icon] ?? (
+            <DocumentTextIcon style={{ width: 22, height: 22 }} />
+          );
 
-            <p className={styles.policySummary}>{policy.summary}</p>
-
-            <div className={styles.stepsSection}>
-              <h3 className={styles.stepsTitle}>
-                <ShieldCheckIcon style={{ width: 18, height: 18 }} /> Rules & Application Steps
-              </h3>
-              <ol className={styles.stepsList}>
-                {policy.stepsOrRules.map((step: string, idx: number) => (
-                  <li key={idx} className={styles.stepItem}>
-                    <span className={styles.stepNumber}>{idx + 1}</span>
-                    <span className={styles.stepText}>{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            {policy.importantNotes && (
-              <div className={styles.notesBox}>
-                <div className={styles.notesTitle}>
-                  <ExclamationCircleIcon style={{ width: 16, height: 16 }} /> Important Requirements
+          return (
+            <article key={policy.id} id={policy.id} className={styles.policyCard}>
+              {/* Card Header */}
+              <div className={styles.cardHeader}>
+                <div className={styles.iconWrapper}>{iconElement}</div>
+                <div className={styles.titleMeta}>
+                  <div className={styles.badgeRow}>
+                    <span className={styles.categoryBadge}>{policy.category}</span>
+                  </div>
+                  <h2 className={styles.policyTitle}>{policy.title}</h2>
                 </div>
-                <p className={styles.notesList}>{policy.importantNotes}</p>
               </div>
-            )}
-          </article>
-        ))}
+
+              {/* Summary Callout */}
+              <p className={styles.summaryText}>{policy.summary}</p>
+
+              {/* Rules & Application Steps */}
+              <div className={styles.stepsSection}>
+                <h3 className={styles.stepsTitle}>
+                  <ShieldCheckIcon style={{ width: 18, height: 18 }} /> Rules & Application Steps
+                </h3>
+                <ol className={styles.stepsList}>
+                  {policy.stepsOrRules.map((step: string, idx: number) => (
+                    <li key={idx} className={styles.stepItem}>
+                      <span className={styles.stepNumber}>{idx + 1}</span>
+                      <span className={styles.stepText}>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+
+              {/* Important Requirements Box */}
+              {policy.importantNotes && (
+                <div className={styles.notesBox}>
+                  <div className={styles.notesHeader}>
+                    <ExclamationTriangleIcon style={{ width: 16, height: 16 }} /> Important Requirements
+                  </div>
+                  <p className={styles.notesContent}>{policy.importantNotes}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
       </div>
 
-      {/* Still have questions banner */}
+      {/* Support Banner */}
       <div className={styles.supportBanner}>
         <div className={styles.bannerContent}>
           <h3 className={styles.bannerTitle}>Have a special academic query?</h3>
