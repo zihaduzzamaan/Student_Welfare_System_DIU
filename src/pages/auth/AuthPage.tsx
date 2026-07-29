@@ -159,10 +159,10 @@ export default function AuthPage() {
       <div className={`${styles.formPanel} ${isRegister ? styles.formPanelLeft : ''}`}>
         <div className={styles.formContainer}>
           {/* ── LOGIN FORM WRAPPER (Persistent DOM) ── */}
-          <div className={`${styles.formWrapper} ${!isRegister ? styles.activeForm : styles.inactiveForm}`}>
+          <div className={`${styles.formWrapper} ${!isRegister ? styles.activeForm : styles.inactiveFormLeft}`}>
             <div className={styles.formHeader}>
               <div className={styles.mobileLogo}>
-                <DIULogo mode="full" height={40} />
+                <DIULogo mode="full" variant="on-dark" height={44} />
               </div>
               <h2 className={styles.formTitle}>Welcome Back</h2>
               <p className={styles.formSubtitle}>
@@ -272,10 +272,10 @@ export default function AuthPage() {
           </div>
 
           {/* ── REGISTER FORM WRAPPER (Persistent DOM) ── */}
-          <div className={`${styles.formWrapper} ${isRegister ? styles.activeForm : styles.inactiveForm}`}>
+          <div className={`${styles.formWrapper} ${isRegister ? styles.activeForm : styles.inactiveFormRight}`}>
             <div className={styles.formHeader}>
               <div className={styles.mobileLogo}>
-                <DIULogo mode="full" height={40} />
+                <DIULogo mode="full" variant="on-dark" height={44} />
               </div>
               <h2 className={styles.formTitle}>Create Account</h2>
               <p className={styles.formSubtitle}>
