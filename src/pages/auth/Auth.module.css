@@ -433,3 +433,94 @@
 .link:hover {
   text-decoration: underline;
 }
+
+/* ── Comprehensive Mobile Responsiveness ── */
+@media (max-width: 1023px) {
+  .authPage {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--color-bg-primary);
+  }
+
+  .formPanel {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--space-6) var(--space-4);
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .formContainer {
+    width: 100%;
+    max-width: 440px;
+    min-height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobileLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--space-6);
+  }
+}
+
+@media (max-width: 640px) {
+  .formPanel {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .formHeader {
+    margin-bottom: var(--space-4);
+    text-align: center;
+  }
+
+  .formTitle {
+    font-size: var(--text-xl);
+  }
+
+  .formSubtitle {
+    font-size: var(--text-xs);
+  }
+
+  .input {
+    font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
+    padding: 12px 14px 12px 38px;
+    height: 46px;
+  }
+
+  .submitBtn {
+    height: 46px;
+    font-size: var(--text-sm);
+  }
+
+  .demoAccounts {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .demoAccount {
+    flex: 1 1 calc(33.333% - var(--space-2));
+    min-width: 90px;
+    padding: 8px 4px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 380px) {
+  .demoAccounts {
+    flex-direction: column;
+  }
+
+  .demoAccount {
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+  }
+}
