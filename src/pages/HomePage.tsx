@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { APP_NAME, UNIVERSITY_NAME } from '../utils/constants';
 import styles from './HomePage.module.css';
+import diuLogoImg from '/images/diu-logo-img.png';
 
 interface QuickAction {
   label: string;
@@ -68,7 +69,7 @@ export default function HomePage() {
       <section className={styles.hero}>
         <div className={styles.heroHeaderRow}>
           <img
-            src="/images/diu-logo-img.png"
+            src={diuLogoImg}
             alt="DIU Welfare Emblem"
             className={styles.heroLogoImg}
           />

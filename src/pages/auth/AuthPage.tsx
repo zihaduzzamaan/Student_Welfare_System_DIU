@@ -20,6 +20,7 @@ import {
 import { useAuth } from '../../hooks/useAuth';
 import { DIULogo } from '../../components/ui/DIULogo';
 import styles from './Auth.module.css';
+import campusImg from '/images/diu-campus-real.jpg';
 
 export default function AuthPage() {
   const { login, register, isAuthenticated } = useAuth();
@@ -135,7 +136,10 @@ export default function AuthPage() {
   return (
     <div className={styles.authPage}>
       {/* Brand Panel (Campus Image & Overlay) — slides Right on Register */}
-      <div className={`${styles.brandPanel} ${isRegister ? styles.brandPanelRight : ''}`}>
+      <div
+        className={`${styles.brandPanel} ${isRegister ? styles.brandPanelRight : ''}`}
+        style={{ backgroundImage: `linear-gradient(180deg, rgba(8, 30, 18, 0.65) 0%, rgba(6, 22, 14, 0.90) 100%), url(${campusImg})` }}
+      >
         <div className={styles.brandContent}>
           <DIULogo mode="full" height={104} variant="on-dark" className={styles.brandLogoFull} />
           <h2 className={styles.brandDept}>Department of Software Engineering</h2>

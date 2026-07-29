@@ -17,9 +17,10 @@
 .brandPanel {
   display: none;
   width: 50%;
-  background: 
-    linear-gradient(180deg, rgba(8, 30, 18, 0.65) 0%, rgba(6, 22, 14, 0.90) 100%),
-    url('/images/diu-campus-real.jpg') center/cover no-repeat;
+  background: linear-gradient(180deg, rgba(8, 30, 18, 0.65) 0%, rgba(6, 22, 14, 0.90) 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--color-text-on-primary);
   position: relative;
   overflow: hidden;
