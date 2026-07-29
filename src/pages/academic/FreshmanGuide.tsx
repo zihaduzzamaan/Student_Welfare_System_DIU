@@ -8,9 +8,25 @@ import {
   ArrowLeftIcon,
   ExclamationCircleIcon,
   QuestionMarkCircleIcon,
+  ComputerDesktopIcon,
+  BookOpenIcon,
+  CreditCardIcon,
+  ShieldCheckIcon,
+  ClipboardDocumentCheckIcon,
+  AcademicCapIcon,
 } from '@heroicons/react/24/outline';
 import { mockFreshmanGuides } from '../../data/mockGuides';
 import styles from './FreshmanGuide.module.css';
+
+/* ── Heroicon Map for Dynamic Icon Resolver ── */
+const GUIDE_ICONS: Record<string, React.ReactNode> = {
+  Layout: <ComputerDesktopIcon style={{ width: 22, height: 22 }} />,
+  BookOpen: <BookOpenIcon style={{ width: 22, height: 22 }} />,
+  CreditCard: <CreditCardIcon style={{ width: 22, height: 22 }} />,
+  ShieldAlert: <ShieldCheckIcon style={{ width: 22, height: 22 }} />,
+  CheckSquare: <ClipboardDocumentCheckIcon style={{ width: 22, height: 22 }} />,
+  Award: <AcademicCapIcon style={{ width: 22, height: 22 }} />,
+};
 
 export default function FreshmanGuide() {
   const navigate = useNavigate();
@@ -38,45 +54,53 @@ export default function FreshmanGuide() {
 
       {/* Guide Cards */}
       <div className={styles.guideList}>
-        {mockFreshmanGuides.map((guide) => (
-          <article key={guide.id} id={guide.id} className={styles.guideCard}>
-            <div className={styles.guideHeader}>
-              <div className={styles.guideIconWrapper}>
-                <span>{guide.icon}</span>
-              </div>
-              <div className={styles.guideTitleGroup}>
-                <h2 className={styles.guideTitle}>{guide.title}</h2>
+        {mockFreshmanGuides.map((guide) => {
+          const iconElement = GUIDE_ICONS[guide.icon] ?? (
+            <BookOpenIcon style={{ width: 22, height: 22 }} />
+          );
+
+          return (
+            <article key={guide.id} id={guide.id} className={styles.guideCard}>
+              {/* Card Header */}
+              <div className={styles.cardHeader}>
+                <div className={styles.headerLeft}>
+                  <div className={styles.iconWrapper}>{iconElement}</div>
+                  <h2 className={styles.guideTitle}>{guide.title}</h2>
+                </div>
                 <span className={styles.categoryBadge}>{guide.category}</span>
               </div>
-            </div>
 
-            <p className={styles.guideSummary}>{guide.summary}</p>
+              {/* Summary Paragraph */}
+              <p className={styles.summaryText}>{guide.summary}</p>
 
-            <div className={styles.stepsSection}>
-              <h3 className={styles.stepsTitle}>Step-by-step Setup:</h3>
-              <ol className={styles.stepsList}>
-                {guide.stepsOrRules.map((step: string, idx: number) => (
-                  <li key={idx} className={styles.stepItem}>
-                    <span className={styles.stepNumber}>{idx + 1}</span>
-                    <span className={styles.stepText}>{step}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            {guide.importantNotes && (
-              <div className={styles.notesBox}>
-                <div className={styles.notesTitle}>
-                  <ExclamationCircleIcon style={{ width: 16, height: 16 }} /> Important Notes & Common Pitfalls
-                </div>
-                <p className={styles.notesList}>{guide.importantNotes}</p>
+              {/* Step-by-Step Setup */}
+              <div className={styles.stepsSection}>
+                <h3 className={styles.stepsTitle}>Step-by-step Setup</h3>
+                <ol className={styles.stepsList}>
+                  {guide.stepsOrRules.map((step: string, idx: number) => (
+                    <li key={idx} className={styles.stepItem}>
+                      <span className={styles.stepNumber}>{idx + 1}</span>
+                      <span className={styles.stepText}>{step}</span>
+                    </li>
+                  ))}
+                </ol>
               </div>
-            )}
-          </article>
-        ))}
+
+              {/* Important Notes Box */}
+              {guide.importantNotes && (
+                <div className={styles.notesBox}>
+                  <div className={styles.notesHeader}>
+                    <ExclamationCircleIcon style={{ width: 16, height: 16 }} /> Important Notes & Common Pitfalls
+                  </div>
+                  <p className={styles.notesContent}>{guide.importantNotes}</p>
+                </div>
+              )}
+            </article>
+          );
+        })}
       </div>
 
-      {/* Still need help banner */}
+      {/* Support Banner */}
       <div className={styles.supportBanner}>
         <div className={styles.bannerContent}>
           <h3 className={styles.bannerTitle}>Need personalized onboarding support?</h3>
