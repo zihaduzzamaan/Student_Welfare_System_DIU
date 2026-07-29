@@ -10,12 +10,27 @@ import {
   PaperAirplaneIcon,
   ExclamationCircleIcon,
   BookmarkIcon,
+  DocumentTextIcon,
+  WrenchScrewdriverIcon,
+  UserGroupIcon,
+  TrophyIcon,
+  AcademicCapIcon,
+  BriefcaseIcon,
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../hooks/useAuth';
 import { useAnnouncements } from '../../hooks/useAnnouncements';
 import { ANNOUNCEMENT_CATEGORIES } from '../../utils/constants';
 import type { AnnouncementCategory } from '../../types';
 import styles from './CreateAnnouncement.module.css';
+
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  'exam-notice': <DocumentTextIcon style={{ width: 16, height: 16 }} />,
+  'workshop': <WrenchScrewdriverIcon style={{ width: 16, height: 16 }} />,
+  'seminar': <UserGroupIcon style={{ width: 16, height: 16 }} />,
+  'competition': <TrophyIcon style={{ width: 16, height: 16 }} />,
+  'scholarship': <AcademicCapIcon style={{ width: 16, height: 16 }} />,
+  'internship': <BriefcaseIcon style={{ width: 16, height: 16 }} />,
+};
 
 export default function CreateAnnouncement() {
   const { user } = useAuth();
@@ -117,7 +132,7 @@ export default function CreateAnnouncement() {
                   className={`${styles.catCard} ${category === cat.value ? styles.activeCatCard : ''}`}
                   onClick={() => setCategory(cat.value as AnnouncementCategory)}
                 >
-                  <span className={styles.catEmoji}>{cat.emoji}</span>
+                  <span className={styles.catIcon}>{CATEGORY_ICONS[cat.value]}</span>
                   <span className={styles.catLabel}>{cat.label}</span>
                 </button>
               ))}

@@ -1,5 +1,6 @@
 /* ============================================
    CreateAnnouncement Page Styles
+   DIU Student Welfare System
    ============================================ */
 
 .container {
@@ -8,6 +9,7 @@
   gap: var(--space-6);
   max-width: 800px;
   margin: 0 auto;
+  padding-bottom: var(--space-8);
 }
 
 .headerNav {
@@ -20,9 +22,10 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
+  padding: 8px 14px;
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
+  font-weight: var(--font-medium);
   color: var(--color-text-secondary);
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
@@ -33,14 +36,30 @@
 .backBtn:hover {
   background: var(--color-bg-hover);
   color: var(--color-primary);
+  border-color: var(--color-primary-200);
 }
 
-.breadcrumb {
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
   font-size: var(--text-sm);
-  color: var(--color-text-tertiary);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
 }
 
-.formWrapper {
+.formCard {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -48,59 +67,27 @@
   box-shadow: var(--shadow-sm);
 }
 
-.formHeader {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border-light);
-}
-
-.iconCircle {
+.errorMsg {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: var(--color-primary-50);
-  color: var(--color-primary);
-  border-radius: var(--radius-md);
-  flex-shrink: 0;
-}
-
-.title {
-  font-size: var(--text-2xl);
-  font-weight: var(--font-bold);
-  color: var(--color-text-primary);
-  margin-bottom: 2px;
-}
-
-.subtitle {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
-}
-
-.errorAlert {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
   background: var(--color-danger-bg);
-  border: 1px solid color-mix(in srgb, var(--color-danger) 25%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 20%, transparent);
   border-radius: var(--radius-md);
   color: var(--color-danger);
-  font-size: var(--text-sm);
-  margin-bottom: var(--space-6);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-5);
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
-.fieldGroup {
+.field {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -117,10 +104,9 @@
 }
 
 .input,
-.select,
 .textarea {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: 10px 14px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
@@ -130,7 +116,6 @@
 }
 
 .input:focus,
-.select:focus,
 .textarea:focus {
   outline: none;
   border-color: var(--color-primary);
@@ -139,11 +124,60 @@
 
 .textarea {
   resize: vertical;
-  min-height: 150px;
+  min-height: 160px;
   line-height: var(--leading-relaxed);
 }
 
-.checkboxGroup {
+/* ── Category Picker Pills ── */
+.categoryGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: var(--space-1);
+}
+
+.catCard {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 14px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+}
+
+.catCard:hover {
+  border-color: var(--color-primary-200);
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+}
+
+.activeCatCard {
+  border-color: var(--color-primary);
+  background: var(--color-primary-50);
+  color: var(--color-primary-dark);
+  font-weight: var(--font-semibold);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.catIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.catLabel {
+  line-height: 1;
+}
+
+/* ── Checkbox Row ── */
+.checkboxField {
   padding: var(--space-3) var(--space-4);
   background: var(--color-bg-primary);
   border: 1px solid var(--color-border-light);
@@ -167,10 +201,13 @@
   cursor: pointer;
 }
 
-.pinIcon {
-  color: var(--color-accent-dark);
+.checkboxText {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
+/* ── Footer Buttons ── */
 .formFooter {
   display: flex;
   align-items: center;
@@ -181,7 +218,7 @@
 }
 
 .cancelBtn {
-  padding: var(--space-3) var(--space-5);
+  padding: 10px 18px;
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
@@ -201,7 +238,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-6);
+  padding: 10px 20px;
   background: var(--color-primary);
   color: var(--color-text-on-primary);
   border-radius: var(--radius-md);
@@ -219,4 +256,28 @@
 .submitBtn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@media (max-width: 640px) {
+  .formCard {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .categoryGrid {
+    gap: var(--space-2);
+  }
+
+  .catCard {
+    padding: 7px 10px;
+    font-size: 11px;
+  }
 }
