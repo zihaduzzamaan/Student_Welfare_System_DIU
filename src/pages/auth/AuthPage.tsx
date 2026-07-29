@@ -20,7 +20,8 @@ import {
 import { useAuth } from '../../hooks/useAuth';
 import { DIULogo } from '../../components/ui/DIULogo';
 import styles from './Auth.module.css';
-import campusImg from '../../assets/images/diu-campus-real.jpg';
+
+const campusImg = new URL('../../assets/images/diu-campus-real.jpg', import.meta.url).href;
 
 export default function AuthPage() {
   const { login, register, isAuthenticated } = useAuth();
