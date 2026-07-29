@@ -18,8 +18,6 @@ import { useAuth } from '../hooks/useAuth';
 import { APP_NAME, UNIVERSITY_NAME } from '../utils/constants';
 import styles from './HomePage.module.css';
 
-const diuLogoImg = new URL('../assets/images/diu-logo-img.webp', import.meta.url).href;
-
 interface QuickAction {
   label: string;
   description: string;
@@ -66,23 +64,14 @@ export default function HomePage() {
 
   return (
     <div className={styles.page}>
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={styles.heroHeaderRow}>
-          <img
-            src={diuLogoImg}
-            alt="DIU Welfare Emblem"
-            className={styles.heroLogoImg}
-          />
-          <div className={styles.heroContent}>
-            <h1 className={styles.heroTitle}>
-              {greeting}, <span className={styles.userName}>{user?.fullName?.split(' ')[0] ?? 'Student'}</span>
-            </h1>
-            <p className={styles.heroSubtitle}>
-              {APP_NAME} • {UNIVERSITY_NAME}
-            </p>
-          </div>
-        </div>
+      {/* Greeting Header */}
+      <section className={styles.greetingHeader}>
+        <h1 className={styles.greetingTitle}>
+          {greeting}, <span className={styles.userName}>{user?.fullName?.split(' ')[0] ?? 'Student'}</span>
+        </h1>
+        <p className={styles.greetingSubtitle}>
+          {APP_NAME} • {UNIVERSITY_NAME}
+        </p>
       </section>
 
       {/* Quick Actions Grid */}
