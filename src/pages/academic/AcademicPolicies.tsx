@@ -66,13 +66,11 @@ export default function AcademicPolicies() {
             <article key={policy.id} id={policy.id} className={styles.policyCard}>
               {/* Card Header */}
               <div className={styles.cardHeader}>
-                <div className={styles.iconWrapper}>{iconElement}</div>
-                <div className={styles.titleMeta}>
-                  <div className={styles.badgeRow}>
-                    <span className={styles.categoryBadge}>{policy.category}</span>
-                  </div>
+                <div className={styles.headerLeft}>
+                  <div className={styles.iconWrapper}>{iconElement}</div>
                   <h2 className={styles.policyTitle}>{policy.title}</h2>
                 </div>
+                <span className={styles.categoryBadge}>{policy.category}</span>
               </div>
 
               {/* Summary Callout */}
