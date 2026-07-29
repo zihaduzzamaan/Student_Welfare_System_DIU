@@ -434,38 +434,46 @@
   text-decoration: underline;
 }
 
-/* ── Comprehensive Mobile Responsiveness ── */
+/* ── Mobile Campus Background & Semi-Transparent White Container ── */
 @media (max-width: 1023px) {
   .authPage {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    background: var(--color-bg-primary);
+    background: var(--campus-bg), var(--color-bg-primary);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: var(--space-6) var(--space-4);
   }
 
   .formPanel {
     width: 100%;
-    max-width: 100%;
-    padding: var(--space-6) var(--space-4);
-    min-height: 100vh;
-    box-sizing: border-box;
+    max-width: 460px;
+    padding: 0;
+    min-height: auto;
   }
 
   .formContainer {
     width: 100%;
-    max-width: 440px;
+    max-width: 100%;
     min-height: auto;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
   }
 
   .mobileLogo {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-5);
   }
 }
 

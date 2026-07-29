@@ -135,7 +135,10 @@ export default function AuthPage() {
   }
 
   return (
-    <div className={styles.authPage}>
+    <div
+      className={styles.authPage}
+      style={{ '--campus-bg': `linear-gradient(180deg, rgba(8, 30, 18, 0.65) 0%, rgba(6, 22, 14, 0.90) 100%), url(${campusImg})` } as React.CSSProperties}
+    >
       {/* Brand Panel (Campus Image & Overlay) — slides Right on Register */}
       <div
         className={`${styles.brandPanel} ${isRegister ? styles.brandPanelRight : ''}`}
