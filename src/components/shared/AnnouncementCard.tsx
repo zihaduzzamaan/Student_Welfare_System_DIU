@@ -6,6 +6,7 @@
 import { BookmarkIcon, TrashIcon, CalendarIcon, UserIcon } from '@heroicons/react/24/outline';
 import { ANNOUNCEMENT_CATEGORIES } from '../../utils/constants';
 import { formatDate } from '../../utils/helpers';
+import { getCategoryIcon } from '../../utils/categoryIcons';
 import type { Announcement, UserRole } from '../../types';
 import styles from './AnnouncementCard.module.css';
 
@@ -24,7 +25,6 @@ export function AnnouncementCard({
 }: AnnouncementCardProps) {
   const catConfig = ANNOUNCEMENT_CATEGORIES.find((c) => c.value === announcement.category) || {
     label: announcement.category,
-    emoji: '📢',
   };
 
   const isStaff = userRole === 'representative' || userRole === 'admin';
@@ -33,7 +33,7 @@ export function AnnouncementCard({
     <article className={`${styles.card} ${announcement.isPinned ? styles.pinnedCard : ''}`}>
       <div className={styles.topBar}>
         <span className={styles.categoryBadge}>
-          <span>{catConfig.emoji}</span>
+          {getCategoryIcon(announcement.category, 14)}
           <span>{catConfig.label}</span>
         </span>
 

@@ -15,6 +15,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useAnnouncements } from '../../hooks/useAnnouncements';
 import { AnnouncementCard } from '../../components/shared/AnnouncementCard';
 import { ANNOUNCEMENT_CATEGORIES } from '../../utils/constants';
+import { getCategoryIcon } from '../../utils/categoryIcons';
 import styles from './Announcements.module.css';
 
 export default function Announcements() {
@@ -75,7 +76,7 @@ export default function Announcements() {
             className={`${styles.pill} ${selectedCategory === 'all' ? styles.activePill : ''}`}
             onClick={() => setSelectedCategory('all')}
           >
-            All Notices ({announcements.length})
+            {getCategoryIcon('all', 15)} All Notices ({announcements.length})
           </button>
           {ANNOUNCEMENT_CATEGORIES.map((cat) => {
             const count = announcements.filter((a) => a.category === cat.value).length;
@@ -86,7 +87,7 @@ export default function Announcements() {
                 className={`${styles.pill} ${selectedCategory === cat.value ? styles.activePill : ''}`}
                 onClick={() => setSelectedCategory(cat.value)}
               >
-                {cat.emoji} {cat.label} ({count})
+                {getCategoryIcon(cat.value, 15)} {cat.label} ({count})
               </button>
             );
           })}

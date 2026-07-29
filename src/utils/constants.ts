@@ -24,13 +24,13 @@ export const TICKET_CATEGORIES: { value: TicketCategory; label: string }[] = [
 ];
 
 /* ── Announcement Categories ── */
-export const ANNOUNCEMENT_CATEGORIES: { value: AnnouncementCategory; label: string; emoji: string }[] = [
-  { value: 'exam-notice', label: 'Exam Notice', emoji: '📝' },
-  { value: 'workshop', label: 'Workshop', emoji: '🔧' },
-  { value: 'seminar', label: 'Seminar', emoji: '🎤' },
-  { value: 'competition', label: 'Competition', emoji: '🏆' },
-  { value: 'scholarship', label: 'Scholarship', emoji: '🎓' },
-  { value: 'internship', label: 'Internship', emoji: '💼' },
+export const ANNOUNCEMENT_CATEGORIES: { value: AnnouncementCategory; label: string }[] = [
+  { value: 'exam-notice', label: 'Exam Notice' },
+  { value: 'workshop', label: 'Workshop' },
+  { value: 'seminar', label: 'Seminar' },
+  { value: 'competition', label: 'Competition' },
+  { value: 'scholarship', label: 'Scholarship' },
+  { value: 'internship', label: 'Internship' },
 ];
 
 /* ── Counselling Types ── */
