@@ -178,24 +178,21 @@ export default function AuthPage() {
                   className={styles.demoAccount}
                   onClick={() => { setLoginEmail('zishan15-7100@diu.edu.bd'); setLoginPassword('demo1234'); setLoginError(''); }}
                 >
-                  <span className={styles.demoRole}>Student</span>
-                  <span className={styles.demoEmail}>zishan15-7100@diu.edu.bd</span>
+                  Student
                 </button>
                 <button
                   type="button"
                   className={styles.demoAccount}
                   onClick={() => { setLoginEmail('fariha15-7050@diu.edu.bd'); setLoginPassword('demo1234'); setLoginError(''); }}
                 >
-                  <span className={styles.demoRole}>SW Rep</span>
-                  <span className={styles.demoEmail}>fariha15-7050@diu.edu.bd</span>
+                  Representative
                 </button>
                 <button
                   type="button"
                   className={styles.demoAccount}
                   onClick={() => { setLoginEmail('touhid.swe@diu.edu.bd'); setLoginPassword('demo1234'); setLoginError(''); }}
                 >
-                  <span className={styles.demoRole}>Admin</span>
-                  <span className={styles.demoEmail}>touhid.swe@diu.edu.bd</span>
+                  Admin
                 </button>
               </div>
             </div>
