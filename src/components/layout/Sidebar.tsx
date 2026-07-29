@@ -73,7 +73,7 @@ const NAV_SECTIONS: { title: string; links: SidebarLink[] }[] = [
   {
     title: 'Counselling',
     links: [
-      { label: 'Request Session', path: '/counselling/request', icon: <UserIcon style={iconStyle} />, roles: ['student'] },
+      { label: 'Request Counselling', path: '/counselling/request', icon: <UserIcon style={iconStyle} />, roles: ['student'] },
       { label: 'Manage Sessions', path: '/counselling/manage', icon: <UserGroupIcon style={iconStyle} />, roles: ['representative', 'admin'] },
     ],
   },
