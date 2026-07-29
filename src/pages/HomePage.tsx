@@ -17,7 +17,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { APP_NAME, UNIVERSITY_NAME } from '../utils/constants';
 import styles from './HomePage.module.css';
-import diuLogoImg from '/images/diu-logo-img.png';
+
+const diuLogoImg = `${import.meta.env.BASE_URL}images/diu-logo-img.png`;
 
 interface QuickAction {
   label: string;

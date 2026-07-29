@@ -3,9 +3,6 @@
    DIU Student Welfare System
    ============================================ */
 
-import logoTransparent from '/images/diu-welfare-logo-transparent.png';
-import logoClean from '/images/diu-welfare-logo-clean.png';
-
 interface DIULogoProps {
   size?: number;
   height?: number;
@@ -23,10 +20,11 @@ export function DIULogo({
 }: DIULogoProps) {
   /* Full Official Banner Image Mode */
   if (mode === 'full') {
+    const base = import.meta.env.BASE_URL;
     const logoSrc =
       variant === 'on-dark'
-        ? logoTransparent
-        : logoClean;
+        ? `${base}images/diu-welfare-logo-transparent.png`
+        : `${base}images/diu-welfare-logo-clean.png`;
 
     return (
       <img
