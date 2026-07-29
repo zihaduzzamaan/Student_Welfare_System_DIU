@@ -135,10 +135,7 @@ export default function AuthPage() {
   }
 
   return (
-    <div
-      className={styles.authPage}
-      style={{ '--campus-bg': `linear-gradient(180deg, rgba(8, 30, 18, 0.65) 0%, rgba(6, 22, 14, 0.90) 100%), url(${campusImg})` } as React.CSSProperties}
-    >
+    <div className={styles.authPage}>
       {/* Brand Panel (Campus Image & Overlay) — slides Right on Register */}
       <div
         className={`${styles.brandPanel} ${isRegister ? styles.brandPanelRight : ''}`}
@@ -158,12 +155,14 @@ export default function AuthPage() {
       {/* Form Panel — slides Left on Register */}
       <div className={`${styles.formPanel} ${isRegister ? styles.formPanelLeft : ''}`}>
         <div className={styles.formContainer}>
+          {/* Mobile Brand Header */}
+          <div className={styles.mobileLogo}>
+            <DIULogo mode="full" height={70} />
+          </div>
+
           {/* ── LOGIN FORM WRAPPER (Persistent DOM) ── */}
-          <div className={`${styles.formWrapper} ${!isRegister ? styles.activeForm : styles.inactiveFormLeft}`}>
+          <div className={`${styles.formWrapper} ${!isRegister ? styles.activeForm : styles.inactiveForm}`}>
             <div className={styles.formHeader}>
-              <div className={styles.mobileLogo}>
-                <DIULogo mode="full" variant="on-dark" height={44} />
-              </div>
               <h2 className={styles.formTitle}>Welcome Back</h2>
               <p className={styles.formSubtitle}>
                 Sign in to access the Student Welfare Portal
@@ -272,11 +271,8 @@ export default function AuthPage() {
           </div>
 
           {/* ── REGISTER FORM WRAPPER (Persistent DOM) ── */}
-          <div className={`${styles.formWrapper} ${isRegister ? styles.activeForm : styles.inactiveFormRight}`}>
+          <div className={`${styles.formWrapper} ${isRegister ? styles.activeForm : styles.inactiveForm}`}>
             <div className={styles.formHeader}>
-              <div className={styles.mobileLogo}>
-                <DIULogo mode="full" variant="on-dark" height={44} />
-              </div>
               <h2 className={styles.formTitle}>Create Account</h2>
               <p className={styles.formSubtitle}>
                 Register with your DIU email to get started
