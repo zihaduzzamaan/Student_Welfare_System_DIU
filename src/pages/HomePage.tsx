@@ -18,7 +18,7 @@ import { useAuth } from '../hooks/useAuth';
 import { APP_NAME, UNIVERSITY_NAME } from '../utils/constants';
 import styles from './HomePage.module.css';
 
-const diuLogoImg = new URL('../assets/images/diu-logo-img.png', import.meta.url).href;
+const diuLogoImg = new URL('../assets/images/diu-logo-img.webp', import.meta.url).href;
 
 interface QuickAction {
   label: string;

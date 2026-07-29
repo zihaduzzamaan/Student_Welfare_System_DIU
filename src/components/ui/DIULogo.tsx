@@ -3,8 +3,8 @@
    DIU Student Welfare System
    ============================================ */
 
-const logoTransparent = new URL('../../assets/images/diu-welfare-logo-transparent.png', import.meta.url).href;
-const logoClean = new URL('../../assets/images/diu-welfare-logo-clean.png', import.meta.url).href;
+const logoTransparent = new URL('../../assets/images/diu-welfare-logo-transparent.webp', import.meta.url).href;
+const logoClean = new URL('../../assets/images/diu-welfare-logo-clean.webp', import.meta.url).href;
 
 interface DIULogoProps {
   size?: number;
