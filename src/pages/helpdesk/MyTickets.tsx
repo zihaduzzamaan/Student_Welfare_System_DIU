@@ -3,7 +3,7 @@
    DIU Student Welfare System
    ============================================ */
 
-import { useState, useMemo, type FormEvent } from 'react';
+import { useState, useMemo, type FormEvent, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   TicketIcon,
@@ -53,18 +53,22 @@ export default function MyTickets() {
     });
   }, [myTickets, selectedStatus, searchQuery]);
 
+  // Sync activeTicket with latest tickets state automatically
+  useEffect(() => {
+    if (activeTicket) {
+      const fresh = tickets.find((t) => t.id === activeTicket.id);
+      if (fresh) {
+        setActiveTicket(fresh);
+      }
+    }
+  }, [tickets]);
+
   function handleSendReply(e: FormEvent) {
     e.preventDefault();
     if (!activeTicket || !replyContent.trim() || !user) return;
 
     setIsReplying(true);
     addReply(activeTicket.id, replyContent.trim(), user);
-
-    // Refresh active ticket view
-    const updated = tickets.find((t) => t.id === activeTicket.id);
-    if (updated) {
-      setActiveTicket(updated);
-    }
     setReplyContent('');
     setIsReplying(false);
   }

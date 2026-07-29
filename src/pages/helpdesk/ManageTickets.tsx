@@ -3,7 +3,7 @@
    DIU Student Welfare System
    ============================================ */
 
-import { useState, useMemo, type FormEvent } from 'react';
+import { useState, useMemo, type FormEvent, useEffect } from 'react';
 import {
   ClipboardDocumentCheckIcon,
   MagnifyingGlassIcon,
@@ -52,28 +52,36 @@ export default function ManageTickets() {
   const openCount = tickets.filter((t) => t.status === 'open').length;
   const escalatedCount = tickets.filter((t) => t.status === 'escalated').length;
 
+  // Sync activeTicket with latest tickets state automatically
+  useEffect(() => {
+    if (activeTicket) {
+      const fresh = tickets.find((t) => t.id === activeTicket.id);
+      if (fresh) {
+        setActiveTicket(fresh);
+      }
+    }
+  }, [tickets]);
+
   function handleSendReply(e: FormEvent) {
     e.preventDefault();
     if (!activeTicket || !replyContent.trim() || !user) return;
 
     setIsSubmitting(true);
     addReply(activeTicket.id, replyContent.trim(), user);
-
-    const updated = tickets.find((t) => t.id === activeTicket.id);
-    if (updated) {
-      setActiveTicket(updated);
-    }
     setReplyContent('');
     setIsSubmitting(false);
   }
 
   function handleStatusChange(ticketId: string, newStatus: TicketStatus) {
-    updateStatus(ticketId, newStatus, user);
-
-    const updated = tickets.find((t) => t.id === ticketId);
-    if (updated) {
-      setActiveTicket(updated);
+    // Instantly update local activeTicket state for 0ms delay UI feedback
+    if (activeTicket && activeTicket.id === ticketId) {
+      setActiveTicket({
+        ...activeTicket,
+        status: newStatus,
+        assignedName: activeTicket.assignedName || (user ? user.fullName : null),
+      });
     }
+    updateStatus(ticketId, newStatus, user);
   }
 
   return (
