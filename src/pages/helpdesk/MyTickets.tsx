@@ -247,19 +247,19 @@ export default function MyTickets() {
                 </div>
               ) : (
                 <form onSubmit={handleSendReply} className={styles.replyForm}>
-                  <input
-                    type="text"
+                  <textarea
+                    rows={3}
                     placeholder="Type your response to the representative..."
                     value={replyContent}
                     onChange={(e) => setReplyContent(e.target.value)}
-                    className={styles.replyInput}
+                    className={styles.replyTextarea}
                   />
                   <button
                     type="submit"
                     className={styles.sendReplyBtn}
                     disabled={isReplying || !replyContent.trim()}
                   >
-                    <PaperAirplaneIcon style={{ width: 16, height: 16 }} /> Send
+                    <PaperAirplaneIcon style={{ width: 16, height: 16 }} /> Send Response
                   </button>
                 </form>
               )}

@@ -221,38 +221,36 @@ export default function ManageTickets() {
 
             {/* Rep Status Control Toolbar */}
             <div className={styles.controlsBar}>
-              <div className={styles.controlsBarInner}>
+              <div className={styles.statusActions}>
                 <span className={styles.controlLabel}>Set Status:</span>
-                <div className={styles.statusBtnGroup}>
-                  <button
-                    type="button"
-                    className={`${styles.statusBtn} ${activeTicket.status === 'open' ? styles.activeStatusBtn : ''}`}
-                    onClick={() => handleStatusChange(activeTicket.id, 'open')}
-                  >
-                    Open
-                  </button>
-                  <button
-                    type="button"
-                    className={`${styles.statusBtn} ${activeTicket.status === 'in_progress' ? styles.activeStatusBtn : ''}`}
-                    onClick={() => handleStatusChange(activeTicket.id, 'in_progress')}
-                  >
-                    In Progress
-                  </button>
-                  <button
-                    type="button"
-                    className={`${styles.statusBtn} ${styles.resolveBtn} ${activeTicket.status === 'resolved' ? styles.activeStatusBtn : ''}`}
-                    onClick={() => handleStatusChange(activeTicket.id, 'resolved')}
-                  >
-                    Resolved
-                  </button>
-                  <button
-                    type="button"
-                    className={`${styles.statusBtn} ${styles.escalateBtn} ${activeTicket.status === 'escalated' ? styles.activeStatusBtn : ''}`}
-                    onClick={() => handleStatusChange(activeTicket.id, 'escalated')}
-                  >
-                    Escalate
-                  </button>
-                </div>
+                <button
+                  type="button"
+                  className={`${styles.statusBtn} ${activeTicket.status === 'open' ? styles.activeStatusBtn : ''}`}
+                  onClick={() => handleStatusChange(activeTicket.id, 'open')}
+                >
+                  Open
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.statusBtn} ${activeTicket.status === 'in_progress' ? styles.activeStatusBtn : ''}`}
+                  onClick={() => handleStatusChange(activeTicket.id, 'in_progress')}
+                >
+                  In Progress
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.statusBtn} ${styles.resolveBtn} ${activeTicket.status === 'resolved' ? styles.activeStatusBtn : ''}`}
+                  onClick={() => handleStatusChange(activeTicket.id, 'resolved')}
+                >
+                  Resolved
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.statusBtn} ${styles.escalateBtn} ${activeTicket.status === 'escalated' ? styles.activeStatusBtn : ''}`}
+                  onClick={() => handleStatusChange(activeTicket.id, 'escalated')}
+                >
+                  Escalate
+                </button>
               </div>
 
               <div className={styles.assignControl}>
@@ -323,12 +321,12 @@ export default function ManageTickets() {
             {/* Rep Official Reply Footer */}
             <div className={styles.modalFooter}>
               <form onSubmit={handleSendReply} className={styles.replyForm}>
-                <input
-                  type="text"
+                <textarea
+                  rows={3}
                   placeholder="Write an official response or instructions for the student..."
                   value={replyContent}
                   onChange={(e) => setReplyContent(e.target.value)}
-                  className={styles.replyInput}
+                  className={styles.replyTextarea}
                 />
                 <button
                   type="submit"
