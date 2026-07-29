@@ -221,36 +221,38 @@ export default function ManageTickets() {
 
             {/* Rep Status Control Toolbar */}
             <div className={styles.controlsBar}>
-              <div className={styles.statusActions}>
+              <div className={styles.controlsBarInner}>
                 <span className={styles.controlLabel}>Set Status:</span>
-                <button
-                  type="button"
-                  className={`${styles.statusBtn} ${activeTicket.status === 'open' ? styles.activeStatusBtn : ''}`}
-                  onClick={() => handleStatusChange(activeTicket.id, 'open')}
-                >
-                  Open
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.statusBtn} ${activeTicket.status === 'in_progress' ? styles.activeStatusBtn : ''}`}
-                  onClick={() => handleStatusChange(activeTicket.id, 'in_progress')}
-                >
-                  In Progress
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.statusBtn} ${styles.resolveBtn} ${activeTicket.status === 'resolved' ? styles.activeStatusBtn : ''}`}
-                  onClick={() => handleStatusChange(activeTicket.id, 'resolved')}
-                >
-                  Resolved
-                </button>
-                <button
-                  type="button"
-                  className={`${styles.statusBtn} ${styles.escalateBtn} ${activeTicket.status === 'escalated' ? styles.activeStatusBtn : ''}`}
-                  onClick={() => handleStatusChange(activeTicket.id, 'escalated')}
-                >
-                  Escalate
-                </button>
+                <div className={styles.statusBtnGroup}>
+                  <button
+                    type="button"
+                    className={`${styles.statusBtn} ${activeTicket.status === 'open' ? styles.activeStatusBtn : ''}`}
+                    onClick={() => handleStatusChange(activeTicket.id, 'open')}
+                  >
+                    Open
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.statusBtn} ${activeTicket.status === 'in_progress' ? styles.activeStatusBtn : ''}`}
+                    onClick={() => handleStatusChange(activeTicket.id, 'in_progress')}
+                  >
+                    In Progress
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.statusBtn} ${styles.resolveBtn} ${activeTicket.status === 'resolved' ? styles.activeStatusBtn : ''}`}
+                    onClick={() => handleStatusChange(activeTicket.id, 'resolved')}
+                  >
+                    Resolved
+                  </button>
+                  <button
+                    type="button"
+                    className={`${styles.statusBtn} ${styles.escalateBtn} ${activeTicket.status === 'escalated' ? styles.activeStatusBtn : ''}`}
+                    onClick={() => handleStatusChange(activeTicket.id, 'escalated')}
+                  >
+                    Escalate
+                  </button>
+                </div>
               </div>
 
               <div className={styles.assignControl}>
