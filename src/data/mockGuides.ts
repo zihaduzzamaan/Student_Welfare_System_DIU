@@ -1,0 +1,181 @@
+/* ============================================
+   Mock Academic Guides & Policies Data
+   DIU Student Welfare System
+   ============================================ */
+
+export interface GuideItem {
+  id: string;
+  title: string;
+  category: 'freshman' | 'policy';
+  icon: string;
+  summary: string;
+  stepsOrRules: string[];
+  importantNotes?: string;
+}
+
+export const mockFreshmanGuides: GuideItem[] = [
+  {
+    id: 'fg-001',
+    title: 'Student Portal Setup & Navigation Guide',
+    category: 'freshman',
+    icon: 'Layout',
+    summary: 'Everything you need to know about setting up your official DIU Student Portal account, viewing class routines, and tracking grades.',
+    stepsOrRules: [
+      'Navigate to portal.diu.edu.bd and click "First Time Login".',
+      'Enter your Student ID (e.g. 222-15-XXXX) and your default password sent to your registered mobile number.',
+      'Change your default password immediately to a secure password.',
+      'Check your Class Routine under the "Academic" menu tab.',
+      'View your payment ledger and dues under the "Accounts" section.',
+    ],
+    importantNotes: 'If you do not receive your default password via SMS, contact the IT Support Desk at Room 302 or submit a Help Desk ticket.',
+  },
+  {
+    id: 'fg-002',
+    title: 'Blended Learning Center (BLC) Onboarding',
+    category: 'freshman',
+    icon: 'BookOpen',
+    summary: 'Learn how to access course materials, submit assignments, and participate in online quizzes on BLC.',
+    stepsOrRules: [
+      'Log into blc.diu.edu.bd using your DIU email (@diu.edu.bd).',
+      'Go to "My Courses" on your dashboard to view enrolled courses for the active semester.',
+      'If a course is missing, click "Self Enrollment" and enter the enrollment key provided by your course teacher.',
+      'Upload assignment submissions in PDF format before the posted deadline.',
+      'Check course announcements regularly for quiz schedules and lecture notes.',
+    ],
+    importantNotes: 'Ensure your uploaded PDF file size does not exceed 10MB per submission.',
+  },
+  {
+    id: 'fg-003',
+    title: 'Account Clearance & Fee Payment Process',
+    category: 'freshman',
+    icon: 'CreditCard',
+    summary: 'Step-by-step guidance on paying tuition fees online via bKash/Nagad/Cards and getting instant exam clearance.',
+    stepsOrRules: [
+      'Log into the Student Portal and navigate to Accounts → Pay Online.',
+      'Select your installment (Registration Fee, Mid-Term Installment, or Final Installment).',
+      'Choose your preferred payment method (bKash, Nagad, Rocket, or Visa/MasterCard).',
+      'Complete the payment and download your digital payment receipt.',
+      'Verify that your clearance status updates from "Pending" to "Cleared" on your portal dashboard.',
+    ],
+    importantNotes: 'Clearance updates automatically within 15 minutes. Save your Payment Transaction ID for reference.',
+  },
+  {
+    id: 'fg-004',
+    title: 'Exam Hall Ticket & Exam Hall Rules',
+    category: 'freshman',
+    icon: 'FileText',
+    summary: 'Guidelines on downloading admit cards, finding exam seating arrangements, and exam room conduct.',
+    stepsOrRules: [
+      'Admit cards are available for download 3 days prior to the start of Mid-Term/Final exams.',
+      'Download and print a physical copy of your Admit Card from Portal → Exam → Admit Card.',
+      'Ensure your student ID card and Admit Card are placed on your desk during the exam.',
+      'Electronic devices (smartwatches, phones) are strictly prohibited inside the exam hall.',
+      'Check the Notice Board or Portal for seating plans 1 hour before the exam starts.',
+    ],
+    importantNotes: 'Admit cards will only generate if your account clearance is complete.',
+  },
+  {
+    id: 'fg-005',
+    title: 'Course Registration & Section Selection',
+    category: 'freshman',
+    icon: 'CheckSquare',
+    summary: 'How to complete pre-registration, choose sections without time conflicts, and add/drop courses.',
+    stepsOrRules: [
+      'Course registration opens 2 weeks before the start of a new semester.',
+      'Log into the Student Portal → Course Registration.',
+      'Select mandatory offered courses according to your SWE semester syllabus.',
+      'Choose section slots (A, B, C, etc.) making sure there are no routine clashes.',
+      'Click "Confirm Registration" and print your registration slip for advisor signature.',
+    ],
+    importantNotes: 'Consult your Academic Advisor if a section is full or if you require course retakes.',
+  },
+  {
+    id: 'fg-006',
+    title: 'Official Transcript & Certificate Application',
+    category: 'freshman',
+    icon: 'Award',
+    summary: 'Procedure for requesting official academic transcripts, testimonial letters, and provisional certificates.',
+    stepsOrRules: [
+      'Ensure all semester dues and library books are fully cleared.',
+      'Submit an online request via Portal → Student Services → Document Request.',
+      'Pay the processing fee (BDT 500 per official transcript copy).',
+      'Track processing status online; standard processing time is 5-7 working days.',
+      'Collect physical copies from the Registrar Office (AB4, 2nd Floor) with your ID card.',
+    ],
+  },
+];
+
+export const mockAcademicPolicies: GuideItem[] = [
+  {
+    id: 'pol-001',
+    title: 'Overlap Exam Policy & Application Process',
+    category: 'policy',
+    icon: 'Clock',
+    summary: 'Policy governing students who have two or more examinations scheduled at the exact same date and time slot.',
+    stepsOrRules: [
+      'If two exams fall in the exact same time slot, you are eligible for an Overlap Exam arrangement.',
+      'Fill out the official Overlap Application Form available at the SWE Department Office.',
+      'Attach copies of your routine/admit card showing the exam time conflict.',
+      'Submit the application at least 7 days before the exam date to the Department Head office.',
+      'Approved candidates will take the second exam in a designated Overlap Exam Hall immediately after the first exam.',
+    ],
+    importantNotes: 'Applications submitted less than 48 hours before the exam will not be accepted.',
+  },
+  {
+    id: 'pol-002',
+    title: 'Medical Leave & Special Examination Policy',
+    category: 'policy',
+    icon: 'Activity',
+    summary: 'Rules for requesting makeup examinations due to severe illness or medical emergencies.',
+    stepsOrRules: [
+      'Students unable to attend an exam due to illness must notify the department within 48 hours.',
+      'Submit a formal application accompanied by a certified medical certificate from a recognized hospital/doctor.',
+      'Applications are reviewed by the Medical Board and Academic Committee.',
+      'Upon approval, a special makeup examination will be scheduled before the start of the next semester.',
+      'A special examination fee of BDT 1,000 per course applies unless waived by the Dean.',
+    ],
+  },
+  {
+    id: 'pol-003',
+    title: 'Semester Drop & Readmission Rules',
+    category: 'policy',
+    icon: 'LogOut',
+    summary: 'Official regulations for dropping a semester due to personal, financial, or medical grounds.',
+    stepsOrRules: [
+      'A student may apply for a semester drop before the commencement of Mid-Term examinations.',
+      'Submit a written application stating valid reasons along with supporting documents to the Department Head.',
+      '70% tuition fee refund is applicable if applied within the first 3 weeks of the semester.',
+      '50% refund applies if applied between week 3 and week 6.',
+      'No refund applies after week 6 or after Mid-Term exams.',
+    ],
+    importantNotes: 'Dropping more than two consecutive semesters requires permission from the Academic Council.',
+  },
+  {
+    id: 'pol-004',
+    title: 'Course Retake & Grade Replacement Policy',
+    category: 'policy',
+    icon: 'RotateCcw',
+    summary: 'Conditions under which a student can retake a course to improve their CGPA.',
+    stepsOrRules: [
+      'A student getting a grade of "F" must retake the course in the subsequent semester.',
+      'Students receiving grades between "D" and "B-" are eligible to retake the course for grade improvement.',
+      'The higher grade achieved will be counted in the final CGPA calculation.',
+      'Regular course registration fees per credit hour apply for retake courses.',
+      'Maximum number of retake courses allowed across the entire degree program is 6 courses.',
+    ],
+  },
+  {
+    id: 'pol-005',
+    title: 'Improvement Examination Regulations',
+    category: 'policy',
+    icon: 'TrendingUp',
+    summary: 'Rules for sitting for improvement exams to enhance specific semester grades.',
+    stepsOrRules: [
+      'Improvement exams are permitted for students with a semester GPA below 2.75.',
+      'Application must be submitted within 10 days of published final semester results.',
+      'Students may sit for improvement in maximum 2 courses per semester.',
+      'If the improvement exam grade is lower than the original grade, the original grade is retained.',
+      'Improvement exam fee is BDT 1,500 per course.',
+    ],
+  },
+];

@@ -1,0 +1,112 @@
+/* ============================================
+   DIU Student Welfare System — Global Styles
+   Base styles for common HTML elements.
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+
+/* ── Headings ── */
+h1 {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: var(--text-xl);
+  line-height: var(--leading-snug);
+}
+
+h4 {
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+}
+
+h5 {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-semibold);
+}
+
+h6 {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+/* ── Body Text ── */
+p {
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+small {
+  font-size: var(--text-sm);
+  color: var(--color-text-tertiary);
+}
+
+strong {
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+/* ── Links ── */
+a:hover {
+  color: var(--color-primary);
+}
+
+/* ── Code ── */
+code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-primary-50);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--color-primary-dark);
+}
+
+/* ── Horizontal Rule ── */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-6) 0;
+}
+
+/* ── Utility Classes ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* ── App Root ── */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

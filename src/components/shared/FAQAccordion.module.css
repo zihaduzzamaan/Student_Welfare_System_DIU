@@ -1,0 +1,106 @@
+/* ============================================
+   FAQAccordion Component Styles
+   DIU Student Welfare System
+   ============================================ */
+
+.accordionItem {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.accordionItem:hover {
+  border-color: var(--color-primary-100);
+}
+
+.accordionItem.open {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(26, 77, 46, 0.08);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.header:hover {
+  background: var(--color-bg-hover);
+}
+
+.questionGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.questionText {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  line-height: var(--leading-snug);
+}
+
+.headerMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.categoryBadge {
+  font-size: 11px;
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  background: var(--color-primary-50);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+.views {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
+}
+
+.chevron {
+  color: var(--color-text-tertiary);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.rotate {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+.contentBody {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  border-top: 1px dashed var(--color-border-light);
+  background: var(--color-bg-primary);
+}
+
+.answerText {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}

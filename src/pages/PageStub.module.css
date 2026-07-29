@@ -1,0 +1,25 @@
+/* ============================================
+   Page Stub Styles (Temporary placeholders)
+   ============================================ */
+
+.stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+  padding: var(--space-8);
+  gap: var(--space-4);
+}
+
+.stub h1 {
+  font-size: var(--text-2xl);
+  color: var(--color-text-primary);
+}
+
+.stub p {
+  font-size: var(--text-base);
+  color: var(--color-text-tertiary);
+  max-width: 400px;
+}
