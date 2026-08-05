@@ -1,15 +1,16 @@
 /* ============================================
    App-Wide Constants
-   DIU Student Welfare System
+   Acadex Platform — DIU Student Welfare System
    ============================================ */
 
 import type { TicketCategory, AnnouncementCategory, CounsellingType, UserRole } from '../types';
 
 /* ── App Info ── */
-export const APP_NAME = 'DIU Student Welfare';
-export const APP_FULL_NAME = 'Departmental Student Success & Engagement Platform';
+export const APP_NAME = 'Acadex';
+export const APP_FULL_NAME = 'Official Student Welfare & Support Platform';
 export const UNIVERSITY_NAME = 'Daffodil International University';
 export const DEPARTMENT_NAME = 'Software Engineering (SWE)';
+export const APP_HERO_DESCRIPTION = 'Official university platform for the students of Daffodil International University, providing seamless access to student support services including online student help desk, admission support, academic guidelines, departmental notices, off/on campus job board, and dedicated counselling services.';
 
 /* ── Ticket Categories ── */
 export const TICKET_CATEGORIES: { value: TicketCategory; label: string }[] = [
@@ -42,12 +43,13 @@ export const COUNSELLING_TYPES: { value: CounsellingType; label: string; descrip
 ];
 
 /* ── Status Labels & Colors ── */
-export const TICKET_STATUS_CONFIG = {
+export const TICKET_STATUS_CONFIG: Record<string, { label: string; colorVar: string }> = {
   open: { label: 'Open', colorVar: '--color-info' },
   in_progress: { label: 'In Progress', colorVar: '--color-warning' },
   resolved: { label: 'Resolved', colorVar: '--color-success' },
   escalated: { label: 'Escalated', colorVar: '--color-danger' },
-} as const;
+  closed: { label: 'Closed', colorVar: '--color-text-tertiary' },
+};
 
 export const COUNSELLING_STATUS_CONFIG = {
   pending: { label: 'Pending', colorVar: '--color-info' },

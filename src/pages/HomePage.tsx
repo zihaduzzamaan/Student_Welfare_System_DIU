@@ -1,6 +1,6 @@
 /* ============================================
    Home Page — Role-based Dashboard
-   DIU Student Welfare System
+   Acadex Platform — DIU Student Welfare System
    ============================================ */
 
 import {
@@ -15,7 +15,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { APP_NAME, UNIVERSITY_NAME } from '../utils/constants';
+import { APP_NAME, UNIVERSITY_NAME, APP_HERO_DESCRIPTION } from '../utils/constants';
 import styles from './HomePage.module.css';
 
 interface QuickAction {
@@ -64,13 +64,16 @@ export default function HomePage() {
 
   return (
     <div className={styles.page}>
-      {/* Greeting Header */}
+      {/* Greeting & Hero Banner */}
       <section className={styles.greetingHeader}>
         <h1 className={styles.greetingTitle}>
           {greeting}, <span className={styles.userName}>{user?.fullName?.split(' ')[0] ?? 'Student'}</span>
         </h1>
         <p className={styles.greetingSubtitle}>
           {APP_NAME} • {UNIVERSITY_NAME}
+        </p>
+        <p className={styles.heroDesc} style={{ marginTop: '10px', fontSize: '0.9rem', color: 'var(--color-text-secondary)', maxWidth: '850px', lineHeight: 1.5 }}>
+          {APP_HERO_DESCRIPTION}
         </p>
       </section>
 

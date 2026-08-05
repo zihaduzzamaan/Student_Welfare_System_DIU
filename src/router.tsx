@@ -1,31 +1,32 @@
 /* ============================================
    Router Configuration
-   DIU Student Welfare System
-   
-   Auth-gated: All portal routes require login.
-   Login & Register are public routes without layout.
+   Acadex Platform — DIU Student Welfare System
    ============================================ */
 
 import { lazy, Suspense } from 'react';
 import { createHashRouter, Navigate } from 'react-router-dom';
-import { AppLayout } from './components/layout/AppLayout.tsx';
-import { AuthGuard } from './components/layout/AuthGuard.tsx';
+import { AppLayout } from './components/layout/AppLayout';
+import { AuthGuard } from './components/layout/AuthGuard';
+import { RoleGuard } from './components/layout/RoleGuard';
 
 /* ── Lazy-loaded pages ── */
-const HomePage = lazy(() => import('./pages/HomePage.tsx'));
-const SubmitTicket = lazy(() => import('./pages/helpdesk/SubmitTicket.tsx'));
-const MyTickets = lazy(() => import('./pages/helpdesk/MyTickets.tsx'));
-const ManageTickets = lazy(() => import('./pages/helpdesk/ManageTickets.tsx'));
-const AcademicCenter = lazy(() => import('./pages/academic/AcademicCenter.tsx'));
-const FreshmanGuide = lazy(() => import('./pages/academic/FreshmanGuide.tsx'));
-const AcademicPolicies = lazy(() => import('./pages/academic/AcademicPolicies.tsx'));
-const FAQ = lazy(() => import('./pages/academic/FAQ.tsx'));
-const Announcements = lazy(() => import('./pages/announcements/Announcements.tsx'));
-const CreateAnnouncement = lazy(() => import('./pages/announcements/CreateAnnouncement.tsx'));
-const RequestCounselling = lazy(() => import('./pages/counselling/RequestCounselling.tsx'));
-const ManageCounselling = lazy(() => import('./pages/counselling/ManageCounselling.tsx'));
-const AnalyticsDashboard = lazy(() => import('./pages/dashboard/AnalyticsDashboard.tsx'));
-const AuthPage = lazy(() => import('./pages/auth/AuthPage.tsx'));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const SubmitTicket = lazy(() => import('./pages/helpdesk/SubmitTicket'));
+const MyTickets = lazy(() => import('./pages/helpdesk/MyTickets'));
+const ManageTickets = lazy(() => import('./pages/helpdesk/ManageTickets'));
+const AcademicCenter = lazy(() => import('./pages/academic/AcademicCenter'));
+const FreshmanGuide = lazy(() => import('./pages/academic/FreshmanGuide'));
+const AcademicPolicies = lazy(() => import('./pages/academic/AcademicPolicies'));
+const FAQ = lazy(() => import('./pages/academic/FAQ'));
+const Announcements = lazy(() => import('./pages/announcements/Announcements'));
+const CreateAnnouncement = lazy(() => import('./pages/announcements/CreateAnnouncement'));
+const RequestCounselling = lazy(() => import('./pages/counselling/RequestCounselling'));
+const ManageCounselling = lazy(() => import('./pages/counselling/ManageCounselling'));
+const AnalyticsDashboard = lazy(() => import('./pages/dashboard/AnalyticsDashboard'));
+const EditProfile = lazy(() => import('./pages/dashboard/EditProfile'));
+const AuthPage = lazy(() => import('./pages/auth/AuthPage'));
+const AdminLoginPage = lazy(() => import('./pages/auth/AdminLoginPage'));
+const GuestTicketLookup = lazy(() => import('./pages/helpdesk/GuestTicketLookup'));
 
 /* ── Page Loading Fallback ── */
 function PageLoader() {
@@ -46,12 +47,11 @@ function PageLoader() {
         borderRadius: '50%',
         marginRight: 'var(--space-3)',
       }} />
-      Loading...
+      Loading Acadex...
     </div>
   );
 }
 
-/* Wrap lazy components in Suspense */
 function withSuspense(Component: React.ComponentType) {
   return (
     <Suspense fallback={<PageLoader />}>
@@ -62,9 +62,11 @@ function withSuspense(Component: React.ComponentType) {
 
 /* ── App Router ── */
 export const router = createHashRouter([
-  /* ── Public Auth Routes (Shared AuthPage for smooth GPU slide transitions) ── */
+  /* ── Public Auth & Guest Routes ── */
   { path: '/login', element: withSuspense(AuthPage) },
   { path: '/register', element: withSuspense(AuthPage) },
+  { path: '/admin/login', element: withSuspense(AdminLoginPage) },
+  { path: '/guest/helpdesk', element: withSuspense(GuestTicketLookup) },
 
   /* ── Protected Portal Routes (requires authentication) ── */
   {
@@ -77,10 +79,20 @@ export const router = createHashRouter([
     children: [
       { index: true, element: withSuspense(HomePage) },
 
+      /* User Profile */
+      { path: 'profile', element: withSuspense(EditProfile) },
+
       /* Help Desk */
       { path: 'helpdesk/submit', element: withSuspense(SubmitTicket) },
       { path: 'helpdesk/my-tickets', element: withSuspense(MyTickets) },
-      { path: 'helpdesk/manage', element: withSuspense(ManageTickets) },
+      {
+        path: 'helpdesk/manage',
+        element: (
+          <RoleGuard allowedRoles={['representative', 'admin']}>
+            {withSuspense(ManageTickets)}
+          </RoleGuard>
+        ),
+      },
 
       /* Academic Info Center */
       { path: 'academic', element: withSuspense(AcademicCenter) },
@@ -90,14 +102,35 @@ export const router = createHashRouter([
 
       /* Announcements */
       { path: 'announcements', element: withSuspense(Announcements) },
-      { path: 'announcements/create', element: withSuspense(CreateAnnouncement) },
+      {
+        path: 'announcements/create',
+        element: (
+          <RoleGuard allowedRoles={['representative', 'admin']}>
+            {withSuspense(CreateAnnouncement)}
+          </RoleGuard>
+        ),
+      },
 
       /* Counselling */
       { path: 'counselling/request', element: withSuspense(RequestCounselling) },
-      { path: 'counselling/manage', element: withSuspense(ManageCounselling) },
+      {
+        path: 'counselling/manage',
+        element: (
+          <RoleGuard allowedRoles={['representative', 'admin']}>
+            {withSuspense(ManageCounselling)}
+          </RoleGuard>
+        ),
+      },
 
-      /* Dashboard */
-      { path: 'dashboard', element: withSuspense(AnalyticsDashboard) },
+      /* Admin Analytics Dashboard (Strictly for Admin) */
+      {
+        path: 'dashboard',
+        element: (
+          <RoleGuard allowedRoles={['admin']}>
+            {withSuspense(AnalyticsDashboard)}
+          </RoleGuard>
+        ),
+      },
 
       /* Catch-all redirect */
       { path: '*', element: <Navigate to="/" replace /> },

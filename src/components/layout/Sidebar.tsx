@@ -1,5 +1,5 @@
 /* ============================================
-   Sidebar Component
+   Sidebar Component — Acadex Platform
    DIU Student Welfare System
    ============================================ */
 
@@ -17,6 +17,7 @@ import {
   UserGroupIcon,
   ChartBarIcon,
   UserIcon,
+  PencilSquareIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { useAuth } from '../../hooks/useAuth';
@@ -43,38 +44,44 @@ const NAV_SECTIONS: { title: string; links: SidebarLink[] }[] = [
   {
     title: 'Main',
     links: [
-      { label: 'Dashboard', path: '/', icon: <HomeIcon style={iconStyle} />, roles: ['student', 'representative', 'admin'] },
+      { label: 'Dashboard', path: '/', icon: <HomeIcon style={iconStyle} />, roles: ['student', 'alumni', 'representative', 'admin'] },
     ],
   },
   {
     title: 'Help Desk',
     links: [
-      { label: 'Submit Ticket', path: '/helpdesk/submit', icon: <QuestionMarkCircleIcon style={iconStyle} />, roles: ['student'] },
-      { label: 'My Tickets', path: '/helpdesk/my-tickets', icon: <TicketIcon style={iconStyle} />, roles: ['student'] },
+      { label: 'Submit Ticket', path: '/helpdesk/submit', icon: <QuestionMarkCircleIcon style={iconStyle} />, roles: ['student', 'alumni'] },
+      { label: 'My Tickets', path: '/helpdesk/my-tickets', icon: <TicketIcon style={iconStyle} />, roles: ['student', 'alumni'] },
       { label: 'Manage Tickets', path: '/helpdesk/manage', icon: <ClipboardDocumentCheckIcon style={iconStyle} />, roles: ['representative', 'admin'] },
     ],
   },
   {
     title: 'Academic',
     links: [
-      { label: 'Info Center', path: '/academic', icon: <BookOpenIcon style={iconStyle} />, roles: ['student', 'representative', 'admin'] },
-      { label: 'Freshman Guide', path: '/academic/freshman-guide', icon: <AcademicCapIcon style={iconStyle} />, roles: ['student', 'representative', 'admin'] },
-      { label: 'Policies', path: '/academic/policies', icon: <DocumentTextIcon style={iconStyle} />, roles: ['student', 'representative', 'admin'] },
-      { label: 'FAQ', path: '/academic/faq', icon: <QuestionMarkCircleIcon style={iconStyle} />, roles: ['student', 'representative', 'admin'] },
+      { label: 'Info Center', path: '/academic', icon: <BookOpenIcon style={iconStyle} />, roles: ['student', 'alumni', 'representative', 'admin'] },
+      { label: 'Freshman Guide', path: '/academic/freshman-guide', icon: <AcademicCapIcon style={iconStyle} />, roles: ['student', 'alumni', 'representative', 'admin'] },
+      { label: 'Policies', path: '/academic/policies', icon: <DocumentTextIcon style={iconStyle} />, roles: ['student', 'alumni', 'representative', 'admin'] },
+      { label: 'FAQ', path: '/academic/faq', icon: <QuestionMarkCircleIcon style={iconStyle} />, roles: ['student', 'alumni', 'representative', 'admin'] },
     ],
   },
   {
     title: 'Communication',
     links: [
-      { label: 'Announcements', path: '/announcements', icon: <MegaphoneIcon style={iconStyle} />, roles: ['student', 'representative', 'admin'] },
+      { label: 'Announcements', path: '/announcements', icon: <MegaphoneIcon style={iconStyle} />, roles: ['student', 'alumni', 'representative', 'admin'] },
       { label: 'Post Announcement', path: '/announcements/create', icon: <PlusCircleIcon style={iconStyle} />, roles: ['representative', 'admin'] },
     ],
   },
   {
     title: 'Counselling',
     links: [
-      { label: 'Request Counselling', path: '/counselling/request', icon: <UserIcon style={iconStyle} />, roles: ['student'] },
+      { label: 'Request Counselling', path: '/counselling/request', icon: <UserIcon style={iconStyle} />, roles: ['student', 'alumni'] },
       { label: 'Manage Sessions', path: '/counselling/manage', icon: <UserGroupIcon style={iconStyle} />, roles: ['representative', 'admin'] },
+    ],
+  },
+  {
+    title: 'Account',
+    links: [
+      { label: 'Edit Profile', path: '/profile', icon: <PencilSquareIcon style={iconStyle} />, roles: ['student', 'alumni', 'representative', 'admin'] },
     ],
   },
   {
@@ -146,7 +153,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         {/* Footer */}
         <div className={styles.sidebarFooter}>
-          <small>Student Welfare System v1.0</small>
+          <small>Acadex Platform v1.0</small>
         </div>
       </aside>
     </>

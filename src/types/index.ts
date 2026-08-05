@@ -1,10 +1,10 @@
 /* ============================================
    TypeScript Type Definitions
-   DIU Student Welfare System
+   Acadex Platform — DIU Student Welfare System
    ============================================ */
 
 /* ── User Roles ── */
-export type UserRole = 'student' | 'representative' | 'admin';
+export type UserRole = 'student' | 'alumni' | 'representative' | 'admin';
 
 /* ── User / Profile ── */
 export interface User {
@@ -15,6 +15,12 @@ export interface User {
   role: UserRole;
   avatarUrl: string | null;
   email: string;
+  contactNumber?: string;
+  alternateEmail?: string;
+  semester?: string;
+  bloodGroup?: string;
+  address?: string;
+  bio?: string;
   createdAt: string;
 }
 
@@ -27,17 +33,22 @@ export type TicketCategory =
   | 'exam'
   | 'registration'
   | 'transcript'
-  | 'welfare';
+  | 'welfare'
+  | 'admission'
+  | 'general';
 
 /* ── Ticket Status ── */
-export type TicketStatus = 'open' | 'in_progress' | 'resolved' | 'escalated';
+export type TicketStatus = 'open' | 'in_progress' | 'resolved' | 'escalated' | 'closed';
 
 /* ── Help Desk Ticket ── */
 export interface Ticket {
   id: string;
+  ticketCode?: string;
+  accessPin?: string;
   studentId: string;
   studentName: string;
   title: string;
+  subject?: string;
   description: string;
   category: TicketCategory;
   status: TicketStatus;
@@ -131,7 +142,7 @@ export interface DashboardStats {
   unresolvedTickets: number;
   counsellingRequests: number;
   announcementsPosted: number;
-  ticketsByCategory: Record<TicketCategory, number>;
+  ticketsByCategory: Record<string, number>;
   monthlyTrends: { month: string; count: number }[];
   topProblems: { problem: string; count: number }[];
 }

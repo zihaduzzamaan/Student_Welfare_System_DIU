@@ -1,6 +1,6 @@
 /* ============================================
    Utility / Helper Functions
-   DIU Student Welfare System
+   Acadex Platform — DIU Student Welfare System
    ============================================ */
 
 /**
@@ -8,6 +8,7 @@
  * Example: "2026-07-29T08:00:00Z" → "Jul 29, 2026"
  */
 export function formatDate(dateStr: string): string {
+  if (!dateStr) return '';
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', {
     month: 'short',
@@ -21,6 +22,7 @@ export function formatDate(dateStr: string): string {
  * Example: "2026-07-29T08:00:00Z" → "Jul 29, 2026 at 2:00 PM"
  */
 export function formatDateTime(dateStr: string): string {
+  if (!dateStr) return '';
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', {
     month: 'short',
@@ -36,6 +38,7 @@ export function formatDateTime(dateStr: string): string {
  * Get relative time string (e.g., "2 hours ago", "3 days ago").
  */
 export function timeAgo(dateStr: string): string {
+  if (!dateStr) return '';
   const now = new Date();
   const date = new Date(dateStr);
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
@@ -51,6 +54,7 @@ export function timeAgo(dateStr: string): string {
  * Capitalize the first letter of a string.
  */
 export function capitalize(str: string): string {
+  if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
@@ -59,6 +63,7 @@ export function capitalize(str: string): string {
  * Example: "student-portal" → "Student Portal"
  */
 export function slugToLabel(slug: string): string {
+  if (!slug) return '';
   return slug
     .split('-')
     .map((word) => capitalize(word))
@@ -69,13 +74,13 @@ export function slugToLabel(slug: string): string {
  * Truncate a string to a maximum length, adding ellipsis.
  */
 export function truncate(str: string, maxLength: number): string {
+  if (!str) return '';
   if (str.length <= maxLength) return str;
   return str.slice(0, maxLength).trimEnd() + '…';
 }
 
 /**
  * Generate a simple pseudo-random ID (for mock data).
- * Not cryptographically secure — use crypto.randomUUID() for real IDs.
  */
 export function generateId(): string {
   return Math.random().toString(36).substring(2, 11);
@@ -83,12 +88,14 @@ export function generateId(): string {
 
 /**
  * Get initials from a full name (for avatar fallbacks).
+ * Defensively handles null, undefined, or non-string parameters.
  * Example: "Zishan Ahmed" → "ZA"
  */
-export function getInitials(name: string): string {
-  return name
-    .split(' ')
-    .filter(Boolean)
+export function getInitials(name?: string | null): string {
+  if (!name || typeof name !== 'string') return '?';
+  const parts = name.trim().split(' ').filter(Boolean);
+  if (parts.length === 0) return '?';
+  return parts
     .map((part) => part[0])
     .slice(0, 2)
     .join('')
@@ -111,7 +118,6 @@ export function debounce<T extends (...args: unknown[]) => void>(
 
 /**
  * Join class names, filtering out falsy values.
- * Example: cn('base', isActive && 'active', undefined) → "base active"
  */
 export function cn(...classes: (string | false | null | undefined)[]): string {
   return classes.filter(Boolean).join(' ');

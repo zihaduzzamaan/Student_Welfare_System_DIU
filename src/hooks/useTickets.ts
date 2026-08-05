@@ -1,13 +1,13 @@
 /* ============================================
-   useTickets Hook (State & LocalStorage Persistence)
-   DIU Student Welfare System
+   useTickets Hook — Acadex Platform
+   Supports MySQL API Persistence & Local Fallback
    ============================================ */
 
 import { useState, useEffect, useCallback } from 'react';
 import { mockTickets } from '../data/mockTickets';
 import type { Ticket, TicketCategory, TicketStatus, User } from '../types';
 
-const TICKETS_STORAGE_KEY = 'diu-sws-tickets';
+const TICKETS_STORAGE_KEY = 'acadex-tickets';
 
 export function useTickets() {
   const [tickets, setTickets] = useState<Ticket[]>(() => {
@@ -17,7 +17,7 @@ export function useTickets() {
         return JSON.parse(saved);
       }
     } catch {
-      // Fallback if parsing fails
+      // Fallback
     }
     return mockTickets;
   });
@@ -27,7 +27,7 @@ export function useTickets() {
     try {
       localStorage.setItem(TICKETS_STORAGE_KEY, JSON.stringify(tickets));
     } catch (e) {
-      console.error('Failed to save tickets to localStorage', e);
+      console.error('Failed to save tickets', e);
     }
   }, [tickets]);
 
@@ -48,6 +48,20 @@ export function useTickets() {
         updatedAt: new Date().toISOString(),
         replies: [],
       };
+
+      /* Post to Backend API asynchronously if available */
+      fetch('http://localhost:5000/api/tickets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: student.id,
+          category: data.category,
+          subject: data.title,
+          description: data.description,
+        }),
+      }).catch(() => {
+        // Handled silently by local state
+      });
 
       setTickets((prev) => [newTicket, ...prev]);
       return newTicket;
@@ -72,7 +86,6 @@ export function useTickets() {
             createdAt: new Date().toISOString(),
           };
 
-          // If a rep replies and ticket is open, update status to in_progress
           let nextStatus = t.status;
           if (author.role !== 'student' && t.status === 'open') {
             nextStatus = 'in_progress';

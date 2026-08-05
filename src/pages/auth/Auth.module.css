@@ -1,6 +1,6 @@
 /* ============================================
    Auth Pages Styles (Login + Register)
-   DIU Student Welfare System
+   Acadex Platform
    ============================================ */
 
 /* ── Full-page layout ── */
@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-/* ── Brand Panel (Campus Image & Description) ── */
+/* ── Brand Panel ── */
 .brandPanel {
   display: none;
   width: 50%;
@@ -30,30 +30,6 @@
   transform: translate3d(0, 0, 0);
 }
 
-.brandPanel::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  right: -20%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(244, 161, 0, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.brandPanel::after {
-  content: '';
-  position: absolute;
-  bottom: -15%;
-  left: -10%;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
 @media (min-width: 1024px) {
   .brandPanel {
     display: flex;
@@ -62,7 +38,6 @@
     padding: var(--space-12);
   }
 
-  /* Smooth GPU slide to Right 50% on Register page */
   .brandPanelRight {
     transform: translate3d(100%, 0, 0);
   }
@@ -72,13 +47,10 @@
   position: relative;
   z-index: 1;
   max-width: 440px;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  will-change: opacity, transform;
 }
 
 .brandLogoFull {
   margin-bottom: var(--space-5);
-  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.45));
   max-width: 100%;
   height: auto;
   display: block;
@@ -88,9 +60,8 @@
   font-family: var(--font-heading);
   font-size: var(--text-lg);
   font-weight: var(--font-semibold);
-  color: var(--color-accent-light);
+  color: var(--color-accent-light, #fcd34d);
   margin-bottom: var(--space-3);
-  letter-spacing: 0.01em;
 }
 
 .brandDesc {
@@ -99,15 +70,14 @@
   line-height: 1.65;
 }
 
-/* ── Form Panel (Right on Login, Left on Register) ── */
+/* ── Form Panel ── */
 .formPanel {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-6);
-  z-index: 1;
-  position: relative;
+  z-index: 5;
   transition: transform 0.65s cubic-bezier(0.77, 0, 0.175, 1);
   will-change: transform;
   transform: translate3d(0, 0, 0);
@@ -116,57 +86,24 @@
 @media (min-width: 1024px) {
   .formPanel {
     width: 50%;
-    flex: none;
     padding: var(--space-12);
   }
 
-  /* Smooth GPU slide to Left 50% on Register page */
   .formPanelLeft {
     transform: translate3d(-100%, 0, 0);
   }
 }
 
-/* ── Form Container & Cross-Fade ── */
 .formContainer {
   width: 100%;
-  max-width: 440px;
-  position: relative;
-  min-height: 520px;
-  display: flex;
-  align-items: center;
-}
-
-.formWrapper {
-  width: 100%;
-  transition: opacity 0.45s ease, transform 0.45s ease, visibility 0.45s ease;
-  will-change: opacity, transform;
-}
-
-.activeForm {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transform: scale(1) translate3d(0, 0, 0);
+  max-width: 420px;
   position: relative;
 }
 
-.inactiveForm {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  transform: scale(0.96) translate3d(0, 12px, 0);
-}
-
-/* ── Mobile Logo ── */
 .mobileLogo {
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-8);
+  justify-content: center;
+  margin-bottom: var(--space-6);
 }
 
 @media (min-width: 1024px) {
@@ -175,16 +112,31 @@
   }
 }
 
-.mobileLogoText {
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  font-weight: var(--font-bold);
-  color: var(--color-primary);
+.formWrapper {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  will-change: opacity, transform;
 }
 
-/* ── Form Header ── */
+.activeForm {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+  position: relative;
+}
+
+.inactiveForm {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
 .formHeader {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
+  text-align: center;
 }
 
 .formTitle {
@@ -200,60 +152,136 @@
   color: var(--color-text-secondary);
 }
 
-/* ── Demo Accounts Switcher ── */
-.demoNotice {
-  background: var(--color-primary-50);
-  border: 1px solid var(--color-primary-100);
-  border-radius: var(--radius-md);
-  padding: var(--space-4);
-  margin-bottom: var(--space-6);
+/* ── User Type Selector (Student vs Guest Cards) ── */
+.categorySelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.demoTitle {
-  font-size: var(--text-xs);
-  font-weight: var(--font-semibold);
-  color: var(--color-primary-dark);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wider);
-  margin-bottom: var(--space-2);
-}
-
-.demoAccounts {
+.categoryCard {
   display: flex;
-  gap: var(--space-2);
-}
-
-.demoAccount {
-  display: inline-flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 12px;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
+  padding: 14px 10px;
+  border-radius: 12px;
+  border: 2px solid var(--color-border, #cbd5e1);
+  background: var(--color-surface, #ffffff);
+  color: var(--color-text-secondary, #64748b);
   cursor: pointer;
-  transition: all var(--transition-fast);
-  flex: 1;
-  font-size: var(--text-xs);
-  font-weight: var(--font-semibold);
-  color: var(--color-text-primary);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.categoryCard span {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+.categoryCard small {
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.categoryActive {
+  border-color: var(--color-primary, #059669);
+  background: #f0fdf4;
+  color: #047857;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.18);
+  transform: translateY(-2px);
+}
+
+/* ── Guest Dropdown Wrapper ── */
+.guestDropdownWrapper {
+  margin-bottom: 20px;
+  background: var(--color-background-secondary, #f8fafc);
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border, #cbd5e1);
+  outline: none;
+  font-size: 0.9rem;
+  background: #ffffff;
+}
+
+/* ── Non-DIU Guest Notice Card ── */
+.nonDiuNotice {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.demoAccount:hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary-50);
-  color: var(--color-primary);
-  transform: translateY(-1px);
+.noticeIcon {
+  color: var(--color-primary, #059669);
+  margin-bottom: 10px;
 }
 
-.demoEmail {
-  font-size: 10px;
-  color: var(--color-text-tertiary);
-  word-break: break-all;
+.nonDiuNotice h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #0f172a);
+  margin-bottom: 8px;
 }
 
-/* ── Form & Inputs ── */
+.nonDiuNotice p {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #64748b);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.guestPortalBtn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--color-primary, #059669);
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.2);
+}
+
+/* ── Role Toggle for Signup ── */
+.roleToggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.roleTab {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.activeTab {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Form Controls ── */
 .form {
   display: flex;
   flex-direction: column;
@@ -272,13 +300,9 @@
   color: var(--color-text-primary);
 }
 
-.optional {
-  font-weight: var(--font-normal);
-  color: var(--color-text-tertiary);
-}
-
-.required {
-  color: var(--color-danger);
+.requiredMark {
+  color: var(--color-danger, #ef4444);
+  font-weight: 700;
 }
 
 .inputWrapper {
@@ -289,245 +313,113 @@
 
 .inputIcon {
   position: absolute;
-  left: 12px;
+  left: var(--space-3);
   color: var(--color-text-tertiary);
   pointer-events: none;
 }
 
 .input {
   width: 100%;
-  padding: 10px 12px 10px 38px;
-  background: var(--color-bg-input);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-10);
+  background: var(--color-bg-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   color: var(--color-text-primary);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .input:focus {
-  outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-50);
+  box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.15);
 }
 
 .togglePassword {
   position: absolute;
-  right: 12px;
-  background: none;
+  right: var(--space-3);
+  background: transparent;
   border: none;
   color: var(--color-text-tertiary);
   cursor: pointer;
-  padding: 2px;
   display: flex;
   align-items: center;
-}
-
-.togglePassword:hover {
-  color: var(--color-text-primary);
 }
 
 .matchIcon {
   position: absolute;
-  right: 12px;
-  color: var(--color-success);
+  right: var(--space-3);
+  color: var(--color-success, #10b981);
 }
 
-/* ── Password Strength Bar ── */
 .strengthBar {
+  margin-top: 6px;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  margin-top: var(--space-1);
+  gap: 8px;
 }
 
 .strengthTrack {
-  display: flex;
-  gap: 3px;
   flex: 1;
+  display: flex;
+  gap: 4px;
+  height: 4px;
 }
 
 .strengthSeg {
-  height: 4px;
   flex: 1;
-  border-radius: var(--radius-full);
-  transition: background-color var(--transition-fast);
+  border-radius: 2px;
 }
 
 .strengthLabel {
-  font-size: var(--text-xs);
-  font-weight: var(--font-semibold);
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
-/* ── Error Message ── */
 .errorMsg {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-danger-bg);
-  border: 1px solid color-mix(in srgb, var(--color-danger) 20%, transparent);
-  border-radius: var(--radius-md);
-  color: var(--color-danger);
-  font-size: var(--text-xs);
-  font-weight: var(--font-medium);
-  margin-bottom: var(--space-4);
-  animation: fadeIn var(--transition-fast) both;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
 }
 
-/* ── Submit Button ── */
 .submitBtn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--color-primary, #059669);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2);
-  width: 100%;
-  padding: 12px;
-  background: var(--color-primary);
-  color: var(--color-text-on-primary);
-  border: none;
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
-  cursor: pointer;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
-  margin-top: var(--space-2);
+  gap: 8px;
+  transition: opacity 0.2s;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
 }
 
-.submitBtn:hover:not(:disabled) {
-  background: var(--color-primary-light);
+.submitBtn:hover {
+  opacity: 0.92;
 }
 
-.submitBtn:active:not(:disabled) {
-  transform: scale(0.99);
-}
-
-.submitBtn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-/* ── Form Footer ── */
 .formFooter {
-  margin-top: var(--space-6);
   text-align: center;
-  font-size: var(--text-xs);
+  margin-top: 20px;
+  font-size: 0.875rem;
   color: var(--color-text-secondary);
 }
 
 .link {
   color: var(--color-primary);
-  font-weight: var(--font-semibold);
+  font-weight: 600;
   text-decoration: none;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
-
-/* ── Comprehensive Mobile Responsiveness ── */
-@media (max-width: 1023px) {
-  .authPage {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--color-bg-primary);
-  }
-
-  .formPanel {
-    width: 100%;
-    max-width: 100%;
-    padding: var(--space-6) var(--space-4);
-    min-height: 100vh;
-    box-sizing: border-box;
-  }
-
-  .formContainer {
-    width: 100%;
-    max-width: 440px;
-    min-height: auto;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .mobileLogo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: var(--space-6);
-  }
-
-  .mobileLogo img {
-    height: 64px !important;
-    max-width: 90%;
-    object-fit: contain;
-   
-  }
-}
-
-@media (max-width: 640px) {
-  .formPanel {
-    padding: var(--space-5) var(--space-4);
-  }
-
-  .formHeader {
-    margin-bottom: var(--space-4);
-    text-align: center;
-  }
-
-  .formTitle {
-    font-size: var(--text-xl);
-  }
-
-  .formSubtitle {
-    font-size: var(--text-xs);
-  }
-
-  .input {
-    font-size: 16px !important; /* Prevents iOS auto-zoom on input focus */
-    padding: 12px 14px 12px 38px;
-    height: 46px;
-  }
-
-  .submitBtn {
-    height: 46px;
-    font-size: var(--text-sm);
-  }
-
-  .demoAccounts {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--space-2);
-  }
-
-  .demoAccount {
-    flex: 1 1 calc(33.333% - var(--space-2));
-    min-width: 90px;
-    padding: 8px 4px;
-    font-size: 11px;
-    white-space: nowrap;
-  }
-}
-
-@media (max-width: 380px) {
-  .demoAccounts {
-    flex-direction: column;
-  }
-
-  .demoAccount {
-    width: 100%;
-    font-size: 12px;
-    padding: 10px;
-  }
 }

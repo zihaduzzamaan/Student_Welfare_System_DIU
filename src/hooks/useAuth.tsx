@@ -1,14 +1,13 @@
 /* ============================================
-   useAuth Hook (Mock — Phase 1)
-   Provides mock authentication context.
-   Users start logged out and must login to access the portal.
-   Will be replaced with Supabase Auth in Phase 2.
+   useAuth Hook — Acadex Platform
+   Supports MySQL (XAMPP) & Session-Preserving Local Storage
    ============================================ */
 
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
 import type { User, UserRole } from '../types';
+import { apiLogin, apiRegister, apiUpdateProfile } from '../services/api';
 
-/* ── Mock Users Database ── */
+/* ── Mock Users Database for Offline Mode ── */
 const MOCK_USERS_DB: User[] = [
   {
     id: 'usr-student-001',
@@ -42,15 +41,18 @@ const MOCK_USERS_DB: User[] = [
   },
 ];
 
-const SESSION_KEY = 'diu-sws-session';
+const SESSION_KEY = 'acadex-user-session';
+const ORIGINAL_USER_KEY = 'acadex-original-user';
 
 /* ── Auth Context Type ── */
 interface AuthContextType {
   user: User | null;
+  originalUser: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   register: (data: RegisterData) => Promise<{ success: boolean; error?: string }>;
+  updateProfile: (profileData: Partial<User>) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   switchRole: (role: UserRole) => void;
 }
@@ -60,118 +62,157 @@ export interface RegisterData {
   email: string;
   studentId: string;
   password: string;
+  role?: UserRole;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-/* ── Auth Provider ── */
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [originalUser, setOriginalUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   /* Restore session on mount */
   useEffect(() => {
     try {
       const savedSession = localStorage.getItem(SESSION_KEY);
+      const savedOriginal = localStorage.getItem(ORIGINAL_USER_KEY);
       if (savedSession) {
         const parsed = JSON.parse(savedSession) as User;
         setUser(parsed);
+        setOriginalUser(savedOriginal ? JSON.parse(savedOriginal) : parsed);
       }
     } catch {
       localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(ORIGINAL_USER_KEY);
     }
     setIsLoading(false);
   }, []);
 
   /* Persist session changes */
-  const persistUser = useCallback((u: User | null) => {
-    setUser(u);
-    if (u) {
-      localStorage.setItem(SESSION_KEY, JSON.stringify(u));
+  const persistSession = useCallback((active: User | null, orig?: User | null) => {
+    setUser(active);
+    const mainUser = orig !== undefined ? orig : active;
+    setOriginalUser(mainUser);
+
+    if (active) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(active));
     } else {
       localStorage.removeItem(SESSION_KEY);
     }
+
+    if (mainUser) {
+      localStorage.setItem(ORIGINAL_USER_KEY, JSON.stringify(mainUser));
+    } else {
+      localStorage.removeItem(ORIGINAL_USER_KEY);
+    }
   }, []);
 
-  /* Mock Login — simulates async auth */
-  const login = useCallback(async (email: string, _password: string): Promise<{ success: boolean; error?: string }> => {
-    /* Simulate network delay */
-    await new Promise((r) => setTimeout(r, 600));
-
-    const found = MOCK_USERS_DB.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase()
-    );
-
-    if (!found) {
-      return { success: false, error: 'No account found with this email. Please register first.' };
+  /* Login — tries MySQL API first, falls back to local DB */
+  const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; error?: string }> => {
+    const apiRes = await apiLogin(email, password);
+    if (apiRes.success && apiRes.user) {
+      persistSession(apiRes.user, apiRes.user);
+      return { success: true };
     }
 
-    /* In mock mode, any non-empty password works */
-    if (!_password || _password.length < 4) {
+    /* Fallback local mock login */
+    const found = MOCK_USERS_DB.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    if (!found) {
+      return { success: false, error: 'No user account found with this email. Please register.' };
+    }
+    if (!password || password.length < 4) {
       return { success: false, error: 'Password must be at least 4 characters.' };
     }
 
-    persistUser(found);
+    persistSession(found, found);
     return { success: true };
-  }, [persistUser]);
+  }, [persistSession]);
 
-  /* Mock Register — simulates creating a new account */
+  /* Register — tries MySQL API first, falls back to local DB */
   const register = useCallback(async (data: RegisterData): Promise<{ success: boolean; error?: string }> => {
-    await new Promise((r) => setTimeout(r, 800));
+    /* Enforce DIU Domain check */
+    const cleanEmail = data.email.trim().toLowerCase();
+    if (!cleanEmail.endsWith('@diu.edu.bd') && !cleanEmail.endsWith('@daffodilvarsity.edu.bd')) {
+      return { success: false, error: 'Please use an official DIU email address (@diu.edu.bd).' };
+    }
 
-    /* Check for duplicate email */
-    const exists = MOCK_USERS_DB.find(
-      (u) => u.email.toLowerCase() === data.email.toLowerCase()
-    );
+    const apiRes = await apiRegister(data);
+    if (apiRes.success && apiRes.user) {
+      persistSession(apiRes.user, apiRes.user);
+      return { success: true };
+    }
+
+    /* Fallback local mock register */
+    const exists = MOCK_USERS_DB.find((u) => u.email.toLowerCase() === cleanEmail);
     if (exists) {
       return { success: false, error: 'An account with this email already exists.' };
     }
 
-    /* Validate DIU email */
-    if (!data.email.endsWith('@diu.edu.bd')) {
-      return { success: false, error: 'Please use your DIU email address (@diu.edu.bd).' };
-    }
-
-    /* Create new user */
     const newUser: User = {
       id: `usr-${Date.now()}`,
       fullName: data.fullName,
       studentId: data.studentId || null,
       department: 'SWE',
-      role: 'student',
+      role: data.role || 'student',
       avatarUrl: null,
-      email: data.email,
+      email: cleanEmail,
       createdAt: new Date().toISOString(),
     };
 
-    /* Add to mock DB and login */
     MOCK_USERS_DB.push(newUser);
-    persistUser(newUser);
+    persistSession(newUser, newUser);
     return { success: true };
-  }, [persistUser]);
+  }, [persistSession]);
 
+  /* Update Profile */
+  const updateProfile = useCallback(async (profileData: Partial<User>): Promise<{ success: boolean; error?: string }> => {
+    if (!user) return { success: false, error: 'User is not logged in.' };
+
+    const updated = { ...user, ...profileData };
+    
+    /* Try API update */
+    await apiUpdateProfile(user.id, profileData);
+
+    /* Update local state */
+    const isOriginal = originalUser?.id === user.id;
+    persistSession(updated, isOriginal ? updated : originalUser);
+    return { success: true };
+  }, [user, originalUser, persistSession]);
+
+  /* Logout */
   const logout = useCallback(() => {
-    persistUser(null);
-  }, [persistUser]);
+    persistSession(null, null);
+  }, [persistSession]);
 
-  /* Dev tool: switch between mock roles */
-  const switchRole = useCallback((role: UserRole) => {
-    const mockUser = MOCK_USERS_DB.find((u) => u.role === role);
-    if (mockUser) {
-      persistUser(mockUser);
+  /* Role Switch Fix — preserves original User identity when returning! */
+  const switchRole = useCallback((targetRole: UserRole) => {
+    if (!user) return;
+
+    /* If switching back to the authenticated user's actual role, restore original user! */
+    if (originalUser && originalUser.role === targetRole) {
+      setUser(originalUser);
+      localStorage.setItem(SESSION_KEY, JSON.stringify(originalUser));
+      return;
     }
-  }, [persistUser]);
+
+    /* Temporarily preview role with original user's identity */
+    const previewUser: User = {
+      ...user,
+      role: targetRole,
+    };
+    setUser(previewUser);
+    localStorage.setItem(SESSION_KEY, JSON.stringify(previewUser));
+  }, [user, originalUser]);
 
   const value: AuthContextType = {
     user,
+    originalUser,
     isAuthenticated: user !== null,
     isLoading,
     login,
     register,
+    updateProfile,
     logout,
     switchRole,
   };
@@ -179,7 +220,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-/* ── Hook ── */
 export function useAuth(): AuthContextType {
   const context = useContext(AuthContext);
   if (!context) {

@@ -1,0 +1,129 @@
+.adminPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top right, #0f172a, #020617);
+  padding: 20px;
+}
+
+.adminCard {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  color: #f8fafc;
+  text-align: center;
+}
+
+.iconWrapper {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  background: rgba(16, 185, 129, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shieldIcon {
+  width: 36px;
+  height: 36px;
+  color: #10b981;
+}
+
+.adminCard h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.errorBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+.inputGroup label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #cbd5e1;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  color: #64748b;
+}
+
+.inputWrapper input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.inputWrapper input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.submitBtn {
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #10b981;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitBtn:hover {
+  background: #059669;
+}
